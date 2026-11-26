@@ -150,4 +150,6 @@ export const TAUNTS = Object.freeze({
   ],
 });
 
-export const SOLID = Object.freeze(new Set(['shelf', 'wall', 'counter']));
+// Walkable: floor | door | counter. Blocking: wall | shelf. (adversarial review pin)
+export const SOLID = Object.freeze(new Set(['shelf', 'wall']));
+

@@ -19,15 +19,19 @@ GraphicsMode switches art packs only; sim/hitboxes identical.
 
 Stack: zero-dep ES modules (game-factory `--web`). Keep `src/kits/**` and `src/lib/**` (art-kit, audio-kit, fx-kit, collision2d, autopilot-kit). Do **not** import 3D libs (`combat3d`, `boss3d`, …).
 
-Coordinates: logical **320×180**, x right, y down, origin top-left. Entity `(x,y)` = **centre**; hitboxes = circles (`r` from `TUNING`, never sprite size). 16 px tiles. Fixed sim step `DT = 1/60` (clamp input dt ≤ 1/30).
+Coordinates: logical **320×180** pixels, x right, y down, origin top-left. Entity `(x,y)` = **centre** (pixel centres). Hitboxes = circles (`r` from `TUNING`, never sprite size). 16 px tiles. Sim step `DT = 1/60`. `g.update` accumulates at most **two** steps then **drops** leftover (input dt clamped by `TUNING.maxDt`).
 
-**Camera:** world → view via `camera = { x, y }` top-left of visible 320×180 window; each frame `camera.x = clamp(player.x - W/2, 0, worldW - W)` (same for y). Render subtracts camera; aim `ax/ay` are **world** space (ui-shell converts pointer via camera).
+**Camera / aim:** `camera = { x, y }` top-left of the 320×180 view; `camera.x = clamp(player.x - W/2, 0, worldW - W)` (same for y). Pointer → world via camera + canvas letterbox/scale in `input.js`. Sim never reads gfx mode. `throwPressed` is a one-frame edge; ammo 0 → throw no-op.
 
-**Tile collision:** `legend` tiles `shelf|wall|counter` are solid. Circle-vs-AABB resolve on player/mice/pete (slide along axes); projectiles despawn on solid; grenades bounce once then slide (`TUNING.grenadeBounce`). Registers and pickups ignore solids (placed on floor only).
+**Tile collision:** **blocking** = `wall|shelf`. **walkable** = `floor|door|counter`. Bodies slide on blockers; projectiles die on blockers; grenades ignore solids while `z>0`, collide when grounded (`TUNING.grenadeBounce`).
 
-**Flow field:** one shared field to nearest live register, rebuilt every `TUNING.flowRebuild` ticks (default 10) or on `register_lost` — not per-mouse BFS each tick.
+**Flow field:** one shared field to nearest live register. Rebuild on **`register_lost`** and **wave advance** only — never per-mouse BFS.
 
-**Ammo UI:** HUD reads `g.ammo.bawlz` only (no parallel state). Scanner has no ammo readout.
+**Combat teams:** scanner + splash hit `team==='vermin'` only (mice **and** Pete). Splash: `dmg*(1-d/R)` for `d<=R`. Never damages registers/player.
+
+**Tick order (play):** weapons → vermin → waves → taunts → **downed already applied in damage** → **lose** → **win** (win only while `state==='play'` / post-intermission play). Only `game.js` writes `g.state` / `g.outcome`.
+
+**Ammo UI:** HUD reads `g.ammo.bawlz` only.
 
 ## 4. Contracts
 
@@ -107,9 +111,10 @@ Events (sim emits): `wave_start` `wave_clear` `spawn` `shot` `hit` `kill` `regis
 1. Determinism: seeded `createRng` only; iterate entities by id; same seed+inputs ⇒ equal `snapshot()`.
 2. Node-safe: `src/sim`, `src/levels`, `src/art`, `src/core` (except `input.js`), pure audio tables — no DOM at import.
 3. Zero runtime deps. `npm test` = node:test. `tools/check-imports.mjs` → 0 errors.
-4. Disjoint owns (§6). Always frozen: `src/kits/**`, `src/lib/**`, `tools/swarm-tracker/**`. `src/core/*` freezes after **core-defs lands and sim-core has green weapons/winlose tests** (TUNING numbers may still be edited by sim-core only). Factory proposals → `../game-factory/proposed/micromaze/`.
-5. IP: generic parody store brand **"MICRO MAZE"** only — no Micro Center wordmark, logo, red/yellow trade-dress clone, or real SKU art. Drink cans: **"BAWLZ"** lettering on a plain can, no reproduced Bawls Energy label. **Christopher**: first name only, no surname/likeness/voice of a real person; comedy-mean manager, not defamatory. **Pete**: KÄSEKRIEG Perring Parkway Pete rat (existing house character).
-6. Prefer `??` over `||`. Bus subscribe at construction.
+4. Disjoint owns (§6). Always frozen: `src/kits/**`, `src/lib/**`. Tracker tooling may gain LAN allowlist fixes. **Do not freeze `input.js` with core-defs** — ui-shell owns it. `defs.js` publishes TUNING keys + ART names before art/sim; TUNING *values* editable by sim-core only after wave 0. Swarm: **phase N starts only when phase N−1 agents are done** (sim-vermin after sim-core). Only `game.js` writes win/lose. Factory proposals → `../game-factory/proposed/micromaze/`.
+5. IP: parody store **"MICRO MAZE"** — no Micro Center wordmark/logo/trade-dress. **"BAWLZ"** plain can lettering only (no bottle silhouette copy). **Christopher** fiction. **Pete**: original PixBuf rat in this repo (house character vibe; do not copy `colby-rig.mjs` verbatim).
+6. Tracker binds `0.0.0.0` only with explicit `TRACKER_ALLOW` prefixes (default loopback). Prefer keep `192.168.1.` on LAN builds; never `ALLOW=*`.
+7. Prefer `??` over `||`. Bus subscribe at construction.
 
 ## 6. Module ownership
 | id | owns |

@@ -86,11 +86,11 @@ export function createGame({ seed = 1, level, bus, weapons = WEAPONS } = {}) {
         g.emit('player_down');
         g.emit('sfx', { name: 'down' });
         g._taunts?.on('player_down');
-      } else if (target.kind === 'register') {
+      } else     if (target.kind === 'register') {
         target.dead = true;
         g.emit('register_lost', { regId: target.st.regId });
         g._taunts?.on('register_lost');
-        g._flowTick = 0; // rebuild flow
+        rebuildFlow(); // event-driven flow rebuild
       } else {
         target.dead = true;
         g.stats.kills++;
@@ -209,12 +209,11 @@ export function createGame({ seed = 1, level, bus, weapons = WEAPONS } = {}) {
     updateGrenades(g, use);
     updatePickups(g, use);
 
-    g._flowTick--;
-    if (g._flowTick <= 0) { rebuildFlow(); g._flowTick = TUNING.flowRebuild; }
-
     updateMice(g, use);
     updatePete(g, use);
+    const prevWave = g.waveIdx;
     g._sched.update(use);
+    if (g.waveIdx !== prevWave) rebuildFlow(); // wave_start
     g._taunts?.update(use);
 
     // compact dead non-register ents occasionally
@@ -229,13 +228,14 @@ export function createGame({ seed = 1, level, bus, weapons = WEAPONS } = {}) {
 
   g.update = (dt, input) => {
     if (!Number.isFinite(dt) || dt < 0 || dt === Infinity) return;
-    // fixed step accumulator
-    g._acc = (g._acc ?? 0) + Math.min(dt, 0.25);
+    // Accumulator: at most two fixed steps; drop leftover (adversarial pin)
+    g._acc = (g._acc ?? 0) + Math.min(dt, TUNING.maxDt);
     let guard = 0;
-    while (g._acc >= DT && guard++ < 8) {
+    while (g._acc >= DT && guard++ < 2) {
       step(DT, input);
       g._acc -= DT;
     }
+    g._acc = 0;
   };
 
   g.snapshot = () => {

@@ -29,7 +29,7 @@ function tileAt(def, tx, ty) {
 }
 
 function walkable(kind) {
-  return kind === 'floor' || kind === 'door';
+  return kind === 'floor' || kind === 'door' || kind === 'counter';
 }
 
 function neighbors(tx, ty, cols, rows) {

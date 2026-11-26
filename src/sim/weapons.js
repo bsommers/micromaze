@@ -117,12 +117,16 @@ export function updateGrenades(g, dt) {
     }
     const nx = e.x + e.vx * dt;
     const ny = e.y + e.vy * dt;
-    const pos = resolveCircle(g.level, e, nx, ny);
-    if (pos.x === e.x && pos.y === e.y) {
-      // bounce off wall
-      if (isSolidAt(g.level, nx, e.y)) e.vx *= -0.5;
-      if (isSolidAt(g.level, e.x, ny)) e.vy *= -0.5;
-    } else { e.x = pos.x; e.y = pos.y; }
+    // In air (z>0) grenades ignore solids; collide only when grounded
+    if ((e.st.z ?? 0) > 0) {
+      e.x = nx; e.y = ny;
+    } else {
+      const pos = resolveCircle(g.level, e, nx, ny);
+      if (pos.x === e.x && pos.y === e.y) {
+        if (isSolidAt(g.level, nx, e.y)) e.vx *= -0.5;
+        if (isSolidAt(g.level, e.x, ny)) e.vy *= -0.5;
+      } else { e.x = pos.x; e.y = pos.y; }
+    }
     e.frame = (e.frame + dt * 10) % 2;
     if (e.st.fuse <= 0) explodeGrenade(g, e);
   }

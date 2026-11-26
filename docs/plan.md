@@ -3,6 +3,8 @@
 ## 1. Goal
 Deliver one playable zero-dep browser level: top-down store defense with scanner + Bawlz, Christopher taunts, Pete boss wave, and a runtime `16bit`/`32bit` art toggle. Contracts in `ARCHITECTURE.md` are binding.
 
+**As-built note (post [Adversarial plan review](5751bd5f-6dae-428e-94e0-bbc04ea8d3ee)):** MVP shipped; contract pins for dt accumulator (≤2 steps), walkable counters, event-driven flow rebuild, grenade air collision, vermin-only splash (Pete included), and phase ordering are applied.
+
 ## 2. Motivation (Measured)
 - Observed: empty scaffold; no fps/playtest baseline yet.
 - Expected: green verify suite below; LAN tracker at `:4880`; bot clears `store01` ≥8/10 seeds.

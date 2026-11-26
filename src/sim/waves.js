@@ -122,8 +122,14 @@ export function createWaveScheduler(g) {
     }
   }
 
+  function tick(dt) {
+    update(dt);
+    return { spawnedOut, verminAlive: verminAlive(), waveIdx, state };
+  }
+
   return {
     update,
+    tick,
     get waveIdx() { return waveIdx; },
     get spawnedOut() { return spawnedOut; },
     get done() { return state === 'done' && waveIdx + 1 >= waves.length && !verminAlive(); },

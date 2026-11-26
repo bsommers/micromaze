@@ -15,7 +15,7 @@ Rules:
 1. `ARCHITECTURE.md` is the binding contract. Grep `^## ` then read only needed sections. `docs/plan.md` has the task order and test matrix.
 2. Own ONLY: {{owns}}. You may also write tests under `test/` for your module, your report, and `out/` scratch. Never edit files you do not own. Guard missing imports with fallbacks.
 3. Report: `node tools/swarm-tracker/bin/track.mjs {{id}} start|progress|done|blocked|failed "…"`.
-4. Verify for real. Cap concurrency ~4. Prefer flash/sonnet for implementation; opus only for contract edits.
+4. Verify for real. Cap concurrency ~4. **Do not spawn phase N until phase N−1 is done** (sim-core before sim-vermin/taunts). Prefer flash/sonnet for implementation; opus only for contract edits.
 5. Finish with `docs/swarm/reports/{{id}}.md` (What I built · Verification · Deviations · Mistakes · Learnings · Requests).
 6. IP: parody store only — no Micro Center logos; BAWLZ parody; fictional Christopher; Pete = KÄSEKRIEG rat.
 
