@@ -4,13 +4,17 @@ import { loadLevel } from '../src/levels/load-node.js';
 import { createGame } from '../src/sim/game.js';
 import { createBot } from '../src/sim/autopilot.js';
 import { DT } from '../src/core/defs.js';
+import { applyDifficulty } from '../src/levels/difficulty.js';
+import { applySize } from '../src/levels/size.js';
 
 function parseArgs(argv) {
-  const out = { level: 'store01', seeds: [1, 2, 3], skill: 1, maxT: 180 };
+  const out = { level: 'store01', seeds: [1, 2, 3], skill: 1, maxT: 180, diff: 'medium', size: 1 };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--level') out.level = argv[++i];
     else if (a === '--seeds') out.seeds = argv[++i].split(',').map(Number);
+    else if (a === '--size') out.size = Number(argv[++i]);
+    else if (a === '--diff') out.diff = argv[++i];
     else if (a === '--skill') out.skill = Number(argv[++i]);
     else if (a === '--max-t') out.maxT = Number(argv[++i]);
   }
@@ -30,7 +34,7 @@ let wins = 0;
 const rows = [];
 for (const seed of args.seeds) {
   const bus = createBus();
-  const g = createGame({ seed, level: structuredClone(level), bus });
+  const g = createGame({ seed, level: applyDifficulty(applySize(level, args.size), args.diff), bus });
   const bot = createBot({ skill: args.skill });
   const maxSteps = Math.floor(args.maxT / DT);
   let nan = false;

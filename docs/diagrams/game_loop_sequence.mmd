@@ -1,0 +1,28 @@
+sequenceDiagram
+  participant B as Browser rAF
+  participant M as main.js
+  participant I as input/touch/bot
+  participant G as sim/game.js
+  participant Bus as event bus
+  participant R as renderer
+  participant A as audio
+  B->>M: frame(now)
+  M->>I: sample(player)
+  I-->>M: Input
+  alt menu open
+    M->>M: acc = 0 (paused)
+  else running
+    loop while acc >= DT (max 2 steps)
+      M->>G: update(DT, input)
+      G->>G: intro/play/intermission step
+      G->>Bus: hit, kill, wave_start, sfx, music, taunt
+      Bus-->>A: play sfx/music
+      Bus-->>R: fx, popup (particles)
+      G->>G: lose check, then win check
+      opt outcome set
+        G->>Bus: game_over
+        Bus-->>M: recordScore(level:diff[:Nx])
+      end
+    end
+  end
+  M->>R: draw(game, alpha, camera)

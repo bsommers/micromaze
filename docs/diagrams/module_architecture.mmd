@@ -1,0 +1,21 @@
+flowchart TD
+  URL[URL params and localStorage] --> MAIN[src/main.js]
+  JSON[Level JSON] --> LOAD[load-browser fetchLevel + validateLevel]
+  LOAD --> SIZE[applySize]
+  SIZE --> DIFF[applyDifficulty]
+  DIFF --> MAIN
+  MAIN --> GAME[sim/game.js createGame]
+  INPUT[core/input + ui/touch] --> MAIN
+  BOT[sim/autopilot] --> MAIN
+  MENU[ui/startmenu] <--> SETTINGS[core/settings]
+  MENU <--> SCORES[core/scores]
+  MENU --> MAIN
+  GAME --> SIM[player weapons enemies pete waves taunts]
+  SIM --> FLOW[levels/level.js flow field]
+  GAME -- events --> BUS((core/events bus))
+  BUS --> RENDER[render/renderer + camera + particles]
+  BUS --> AUDIO[audio/audio sfx music]
+  BUS --> MAIN
+  RENDER --> ART[art/registry px16 px32]
+  RENDER --> HUD[ui/hud + ui/screens]
+  MAIN --> SCORES

@@ -1,0 +1,18 @@
+flowchart LR
+  F[src/levels/id.json] --> V{validateLevel}
+  V -- invalid --> X[error: blank canvas message]
+  V -- ok --> S[applySize k: tiles kxk, positions x k, mice and ammo x k, Pete not duplicated]
+  S --> D[applyDifficulty: hp speed count every regHp ammo drop]
+  D --> C[createGame level]
+  C --> FF[buildFlowField to live registers]
+  C --> WS[wave scheduler]
+  WS -- delay then groups every N s --> SP[spawn mouse / one pete at spawn id]
+  SP --> E[vermin follow flow field]
+  E --> DMG[bite registers]
+  DMG -- register_lost --> FF
+  WS -- vermin cleared --> CB[clearBonus then intermission then next wave]
+  CB -- wave start --> FF
+  CB -- final wave cleared --> WIN[victory]
+  DMG -- loseWhen all or any --> LOSE[defeat]
+  WIN --> SC[score x difficulty x size -> scores store]
+  LOSE --> SC

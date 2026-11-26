@@ -1,6 +1,8 @@
 // Start / pause menu (DOM overlay). Views: main, levels, controls, options, scores.
 import { LEVELS } from '../levels/level.js';
 import { loadScores, clearScores } from '../core/scores.js';
+import { DIFFICULTIES, SCORE_MULT } from '../levels/difficulty.js';
+import { SIZES, SIZE_SCORE } from '../levels/size.js';
 
 export const LEVEL_TITLES = {
   store01: 'Front Checkout',
@@ -94,9 +96,29 @@ export function createStartMenu(opts) {
       );
     } else if (view === 'levels') {
       kids.push(el('h2', { textContent: 'Choose a level' }));
+      const cur = opts.getSettings().difficulty;
+      const dr = el('div', { class: 'diffrow' });
+      for (const d of DIFFICULTIES) {
+        dr.append(el('button', {
+          class: 'mbtn small' + (d === cur ? ' primary' : ''), type: 'button',
+          textContent: d.toUpperCase(), title: `Score x${SCORE_MULT[d]}`,
+          onclick: () => { opts.onSettings({ ...opts.getSettings(), difficulty: d }); render(); },
+        }));
+      }
+      const curSize = opts.getSettings().size;
+      const sr = el('div', { class: 'diffrow' });
+      for (const z of SIZES) {
+        sr.append(el('button', {
+          class: 'mbtn small' + (z === curSize ? ' primary' : ''), type: 'button',
+          textContent: `${z}x`, title: `${z}x the floor space, ${z}x the vermin`,
+          onclick: () => { opts.onSettings({ ...opts.getSettings(), size: z }); render(); },
+        }));
+      }
+      kids.push(dr, el('p', { class: 'tag', textContent: 'Difficulty' }), sr,
+        el('p', { class: 'tag', textContent: `Store size (more floor + vermin) · score x${(SCORE_MULT[cur] * SIZE_SCORE[curSize]).toFixed(2).replace(/\.?0+$/, '')}` }));
       const best = loadScores();
       for (const id of LEVELS) {
-        const top = best[id]?.[0];
+        const top = best[`${id}:${cur}${curSize > 1 ? ':' + curSize + 'x' : ''}`]?.[0];
         kids.push(btn(`${LEVEL_TITLES[id] ?? id}${top ? `  — best ${top.score}` : ''}`, () => opts.onPlay(id), id === opts.currentId ? 'primary' : ''));
       }
       kids.push(back());
@@ -120,15 +142,16 @@ export function createStartMenu(opts) {
       kids.push(el('h2', { textContent: 'Top Scores (this browser)' }));
       const all = loadScores();
       let any = false;
-      for (const id of LEVELS) {
-        const list = all[id];
+      for (const key of LEVELS.flatMap((l) => DIFFICULTIES.flatMap((d) => SIZES.map((z) => `${l}:${d}${z > 1 ? ':' + z + 'x' : ''}`)))) {
+        const list = all[key];
         if (!list?.length) continue;
+        const [id, dif, sz] = key.split(':');
         any = true;
         const ol = el('ol', { class: 'scores' });
         for (const e of list.slice(0, 5)) {
           ol.append(el('li', { textContent: `${String(e.score).padStart(6, ' ')}  ${e.win ? 'WIN ' : 'LOSS'}  ${e.date}` }));
         }
-        kids.push(el('h3', { textContent: LEVEL_TITLES[id] ?? id }), ol);
+        kids.push(el('h3', { textContent: `${LEVEL_TITLES[id] ?? id} — ${dif.toUpperCase()}${sz ? ' ' + sz : ''}` }), ol);
       }
       if (!any) kids.push(el('p', { class: 'tag', textContent: 'No runs yet. Go defend a store.' }));
       kids.push(btn('Clear scores', () => { clearScores(); render(); }, 'sub'), back());

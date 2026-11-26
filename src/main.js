@@ -14,6 +14,8 @@ import { createLevelMenu } from './ui/levelmenu.js';
 import { createStartMenu } from './ui/startmenu.js';
 import { recordScore } from './core/scores.js';
 import { LEVELS } from './levels/level.js';
+import { applyDifficulty, normalizeDifficulty, SCORE_MULT } from './levels/difficulty.js';
+import { applySize, normalizeSize, SIZE_SCORE } from './levels/size.js';
 
 const qs = new URLSearchParams(globalThis.location?.search ?? '');
 let settings = loadSettings();
@@ -37,7 +39,9 @@ async function loadArt(mode) {
 }
 
 async function boot() {
-  const level = await fetchLevel(levelId);
+  const difficulty = normalizeDifficulty(qs.get('diff') ?? settings.difficulty);
+  const size = normalizeSize(qs.get('size') ?? settings.size);
+  const level = applyDifficulty(applySize(await fetchLevel(levelId), size), difficulty);
   let art = await loadArt(settings.gfx);
   const game = createGame({ seed, level, bus });
   const camera = createCamera(game);
@@ -58,11 +62,14 @@ async function boot() {
   let started = autostart || useBot;
   const startMenu = createStartMenu({
     currentId: levelId,
+    difficulty,
     getSettings: () => settings,
     onSettings: applySettings,
     onPlay: (id) => {
       const u = new URL(globalThis.location.href);
       u.searchParams.set('level', id);
+      u.searchParams.set('diff', settings.difficulty);
+      u.searchParams.set('size', String(settings.size));
       u.searchParams.set('autostart', '1');
       globalThis.location.href = u.pathname + u.search;
     },
@@ -77,7 +84,7 @@ async function boot() {
     }
   });
   bus.on('game_over', ({ win, score }) => {
-    recordScore(levelId, { score: score ?? game.score, win, t: game.t });
+    recordScore(`${levelId}:${difficulty}${size > 1 ? ':' + size + 'x' : ''}`, { score: Math.round((score ?? game.score) * SCORE_MULT[difficulty] * SIZE_SCORE[size]), win, t: game.t });
   });
   let tauntAge = 999;
   bus.on('taunt', () => { tauntAge = 0; });

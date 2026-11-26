@@ -2,6 +2,8 @@
 
 Binding execution contract. If a module disagrees with this file, the module is wrong. Record deviations in `docs/swarm/reports/<id>.md`.
 
+> Documentation hub (guides, how-to, diagrams): [docs/README.md](docs/README.md)
+
 ## 1. Goal
 Ship one playable top-down pixel wave-defense level: a parody big-box electronics store. The player (store tech) guards checkout registers from micro-mice with a **price-scanner gun** and lobbed **Bawlz** drink cans. Manager **Christopher** yells taunts. Boss **Perring Parkway Pete** leads the vermin. Runtime toggle **`16bit` | `32bit`** pixel art. Later levels are data-only `LevelDef` JSON.
 

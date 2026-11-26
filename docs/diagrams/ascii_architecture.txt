@@ -1,0 +1,34 @@
+MicroMaze architecture (see ../architecture.md)
+
+ URL params / localStorage                 LevelDef JSON (src/levels/*.json)
+ (level diff size gfx seed bot)                        |
+        |                                     fetchLevel (relative fetch + validateLevel)
+        v                                              v
+  +-----------------------------------------------------------------+
+  | src/main.js  boot + rAF loop (acc, max 2 fixed steps of 1/60)   |
+  |   level = applyDifficulty( applySize(level, size), diff )       |
+  +--+---------+-----------+-----------+------------+---------------+
+     |         |           |           |            |
+     v         v           v           v            v
+ core/input  ui/touch  sim/autopilot  ui/startmenu  core/settings
+ (kbd+mouse) (stick)   (bot, ?bot=1)  (DOM menu)    core/scores
+     \         |           /              (localStorage)
+      +--------+----------+
+               v   Input {mx,my,ax,ay,fire,throwPressed,startPressed}
+  +-----------------------------------------------+
+  | sim/game.js  createGame({seed, level, bus})   |   Node-safe, deterministic
+  |  player  weapons  enemies  pete  waves  taunts|   flow field (levels/level.js)
+  |  state: intro>play<>intermission>victory|defeat|
+  +----------------------+------------------------+
+                         | bus events (core/events.js)
+        +----------------+-----------------+----------------+
+        v                v                 v                v
+  render/renderer   render/particles   audio/audio     main.js game_over
+  + camera + ui/hud (fx events)        (sfx.js,        -> recordScore(level:diff[:Nx])
+  + ui/screens                          music.js)
+        |
+        v
+  art/registry -> px16 | px32 packs (PixBuf, kits/art-kit)
+
+Tooling (Node): botplay, validate-level, check-imports, shot (headless Chrome),
+export-characters, serve, swarm-tracker, scripts/verify.sh

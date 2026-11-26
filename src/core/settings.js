@@ -1,7 +1,7 @@
 // Settings persistence. Node-safe when storage is injected / absent.
 export const SETTINGS_KEY = 'micromaze.settings';
 export const DEFAULTS = Object.freeze({
-  master: 0.8, sfx: 1, music: 0.7, mute: false, gfx: '16bit', crt: false,
+  master: 0.8, sfx: 1, music: 0.7, mute: false, gfx: '16bit', crt: false, difficulty: 'medium', size: 1,
 });
 
 function store(storage) {
@@ -20,6 +20,8 @@ export function sanitizeSettings(o) {
     mute: typeof o.mute === 'boolean' ? o.mute : DEFAULTS.mute,
     crt: typeof o.crt === 'boolean' ? o.crt : DEFAULTS.crt,
     gfx,
+    size: [1, 2, 3].includes(o.size) ? o.size : DEFAULTS.size,
+    difficulty: ['easy', 'medium', 'hard', 'insane'].includes(o.difficulty) ? o.difficulty : DEFAULTS.difficulty,
   };
 }
 export function loadSettings(storage) {

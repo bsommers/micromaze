@@ -82,3 +82,4 @@ body.crt #stage::after {
   content: ''; position: fixed; inset: 0; pointer-events: none;
   background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);
 }
+#startmenu .diffrow { display: flex; gap: 6px; justify-content: center; }
