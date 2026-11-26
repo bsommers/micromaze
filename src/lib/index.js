@@ -1,0 +1,21 @@
+// Barrel for the lib modules. Import individual files or this index.
+export * as physics from './platformer-physics.js';
+export * as hazards from './hazard-kit.js';
+export * as worldgen from './world-gen.js';
+export * as autopilot from './autopilot-kit.js';
+export * as collision3d from './collision3d.js';
+export * as bvh from './bvh.js';
+export * as collision2d from './collision2d.js';
+export * as physics2d from './physics2d.js';
+export * as mesh from './mesh.js';
+export * as meshio from './mesh-io.js';
+export * as gltfAnim from './gltf-anim.js';
+export * as camera3d from './camera3d.js';
+export * as animGraph from './anim-graph.js';
+export * as locomotion3d from './locomotion3d.js';
+export * as combat3d from './combat3d.js';
+export * as ai3d from './ai3d.js';
+export * as boss3d from './boss3d.js';
+export * as limb3d from './limb3d.js';
+export * as vfx3d from './vfx3d.js';
+export * as level3d from './level3d.js';
