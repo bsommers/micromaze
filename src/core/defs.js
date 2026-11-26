@@ -66,24 +66,29 @@ export const PAL32 = Object.freeze({
 
 /** Art manifest: every pack must export these names. */
 export const ART = Object.freeze([
-  { name: 'player_idle', w: 16, h: 16, frames: 2 },
-  { name: 'player_run', w: 16, h: 16, frames: 4 },
-  { name: 'player_down', w: 16, h: 16, frames: 1 },
-  { name: 'mouse', w: 16, h: 16, frames: 2 },
-  { name: 'pete', w: 24, h: 24, frames: 2 },
-  { name: 'register', w: 16, h: 16, frames: 2 },
-  { name: 'projectile', w: 8, h: 8, frames: 1 },
-  { name: 'grenade', w: 8, h: 8, frames: 2 },
-  { name: 'pickup_bawlz', w: 12, h: 12, frames: 1 },
-  { name: 'pickup_hp', w: 12, h: 12, frames: 1 },
-  { name: 'tile_floor', w: 16, h: 16, frames: 1 },
-  { name: 'tile_wall', w: 16, h: 16, frames: 1 },
-  { name: 'tile_shelf', w: 16, h: 16, frames: 1 },
-  { name: 'tile_counter', w: 16, h: 16, frames: 1 },
-  { name: 'tile_door', w: 16, h: 16, frames: 1 },
-  { name: 'fx_explode', w: 24, h: 24, frames: 4 },
-  { name: 'fx_spark', w: 8, h: 8, frames: 2 },
+  { name: 'player_idle', w: 16, h: 16, frames: 2, module: 'px16/chars', desc: 'store tech idle' },
+  { name: 'player_run', w: 16, h: 16, frames: 4, module: 'px16/chars', desc: 'store tech run' },
+  { name: 'player_down', w: 16, h: 16, frames: 1, module: 'px16/chars', desc: 'store tech downed' },
+  { name: 'mouse', w: 16, h: 16, frames: 2, module: 'px16/chars', desc: 'micro-mouse' },
+  { name: 'pete', w: 24, h: 24, frames: 2, module: 'px16/chars', desc: 'Parkway Pete' },
+  { name: 'projectile', w: 8, h: 8, frames: 1, module: 'px16/chars', desc: 'scanner bolt' },
+  { name: 'grenade', w: 8, h: 8, frames: 2, module: 'px16/chars', desc: 'BAWLZ can' },
+  { name: 'pickup_bawlz', w: 12, h: 12, frames: 1, module: 'px16/chars', desc: 'bawlz pickup' },
+  { name: 'pickup_hp', w: 12, h: 12, frames: 1, module: 'px16/chars', desc: 'hp pickup' },
+  { name: 'register', w: 16, h: 16, frames: 2, module: 'px16/store', desc: 'cash register' },
+  { name: 'tile_floor', w: 16, h: 16, frames: 1, module: 'px16/store', desc: 'floor tile' },
+  { name: 'tile_wall', w: 16, h: 16, frames: 1, module: 'px16/store', desc: 'wall tile' },
+  { name: 'tile_shelf', w: 16, h: 16, frames: 1, module: 'px16/store', desc: 'shelf tile' },
+  { name: 'tile_counter', w: 16, h: 16, frames: 1, module: 'px16/store', desc: 'counter tile' },
+  { name: 'tile_door', w: 16, h: 16, frames: 1, module: 'px16/store', desc: 'door tile' },
+  { name: 'fx_explode', w: 24, h: 24, frames: 4, module: 'px16/fx', desc: 'explode' },
+  { name: 'fx_spark', w: 8, h: 8, frames: 2, module: 'px16/fx', desc: 'spark' },
 ]);
+
+/** sheet.mjs compatibility — module-filtered rows from ART. */
+export function artManifest() {
+  return ART.map((a) => ({ ...a }));
+}
 
 export const EVENTS = Object.freeze([
   'wave_start', 'wave_clear', 'spawn', 'shot', 'hit', 'kill',

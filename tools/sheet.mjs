@@ -68,8 +68,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     console.log(`row ${String(r).padStart(2)}  y=${String(y0).padStart(4)}  ${name}  x${frames.length}  ${frames[0].w}x${frames[0].h}`);
     y0 += rh * scale + gap;
   });
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(join(outDir, mod + '.png'), encodePNG(W, H, alb));
+  const albPath = join(outDir, mod + '.png');
+  mkdirSync(dirname(albPath), { recursive: true });
+  writeFileSync(albPath, encodePNG(W, H, alb));
   writeFileSync(join(outDir, mod + '.mat.png'), encodePNG(W, H, mat));
   console.log(`\nwrote ${join(outDir, mod + '.png')} and .mat.png  (${W}x${H}, scale ${scale}, build ${ms.toFixed(1)} ms)`);
   if (problems.length) { console.log('\nPROBLEMS:\n  ' + problems.join('\n  ')); process.exitCode = 1; } else console.log(`OK: all ${want.length} manifest names present with correct sizes/frames.`);

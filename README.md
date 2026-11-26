@@ -4,10 +4,12 @@ Top-down pixel wave-defense: protect the registers from Perring Parkway Pete's m
 
 ```sh
 npm start          # http://127.0.0.1:4881/
+npm run verify     # lint + test + validate + botplay (+ tracker probe)
 npm test           # unit/integration for sim, levels, art, kits
 npm run validate   # store01 LevelDef
 npm run botplay    # autopilot ≥8/10 seeds
 npm run tracker    # http://192.168.1.245:4880/ (LAN 192.168.1.x + loopback)
+node tools/make-sheets.mjs   # out/previews/px16/*.png
 ```
 
 **Controls:** WASD/arrows move · mouse aim · LMB scanner · RMB / `F` Bawlz grenade · Enter start · `G` gfx mode

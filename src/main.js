@@ -9,6 +9,7 @@ import { createCamera } from './render/camera.js';
 import { createGameParticles } from './render/particles.js';
 import { createRenderer, buildArtFallback } from './render/renderer.js';
 import { createBot } from './sim/autopilot.js';
+import { createTouch } from './ui/touch.js';
 
 const qs = new URLSearchParams(globalThis.location?.search ?? '');
 let settings = loadSettings();
@@ -42,6 +43,7 @@ async function boot() {
   let tauntAge = 999;
   bus.on('taunt', () => { tauntAge = 0; });
 
+  const touch = createTouch(canvas);
   const input = createInput(canvas, () => ({
     x: camera.x, y: camera.y, lb: renderer.letterbox,
   }), {
@@ -64,6 +66,10 @@ async function boot() {
 
     camera.update();
     let inp = input.sample(game.player);
+    const t = touch.sample();
+    if (t.active || t.mx || t.my || t.fire) {
+      inp = { ...inp, mx: t.mx || inp.mx, my: t.my || inp.my, fire: inp.fire || t.fire };
+    }
     if (autoBot) inp = autoBot.decide(game);
 
     while (acc >= DT) {

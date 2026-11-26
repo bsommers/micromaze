@@ -7,9 +7,10 @@
     "start": "node tools/serve.mjs ${PORT:-4881}",
     "tracker": "TRACKER_ROOT=$PWD TRACKER_HOST=${TRACKER_HOST:-0.0.0.0} TRACKER_PORT=${TRACKER_PORT:-4880} TRACKER_ALLOW=${TRACKER_ALLOW:-127.0.0.1,::1,192.168.1.} node tools/swarm-tracker/dashboard/server.mjs",
     "plan": "TRACKER_ROOT=$PWD node tools/swarm-tracker/bin/swarm-plan.mjs",
-    "test": "node --test test/smoke.test.mjs test/kits/*.test.mjs test/lib/collision2d.test.mjs test/lib/physics2d.test.mjs test/lib/world-gen.test.mjs test/lib/autopilot-kit.test.mjs test/lib/hazard-kit.test.mjs test/lib/platformer-physics.test.mjs test/sim/*.test.mjs test/levels/*.test.mjs test/art/*.test.mjs",
+    "test": "node --test test/smoke.test.mjs test/kits/*.test.mjs test/lib/collision2d.test.mjs test/lib/physics2d.test.mjs test/lib/world-gen.test.mjs test/lib/autopilot-kit.test.mjs test/lib/hazard-kit.test.mjs test/lib/platformer-physics.test.mjs test/sim/*.test.mjs test/levels/*.test.mjs test/art/*.test.mjs test/security/*.test.mjs test/system/*.test.mjs",
     "validate": "node tools/validate-level.mjs src/levels/store01.json",
     "botplay": "node tools/botplay.mjs --level store01 --seeds 1,2,3,4,5,6,7,8,9,10",
+    "verify": "bash scripts/verify.sh",
     "lint:imports": "node tools/check-imports.mjs"
   }
 }
