@@ -1,0 +1,73 @@
+{
+  "id": "store01",
+  "name": "MICRO MAZE — Front Checkout",
+  "version": 1,
+  "tiles": [
+    "####################",
+    "#D................D#",
+    "#..................#",
+    "#....##......##....#",
+    "#..................#",
+    "#........SS........#",
+    "#..................#",
+    "#....##......##....#",
+    "#..................#",
+    "#......PPPPPP......#",
+    "####################"
+  ],
+  "legend": {
+    "#": "wall",
+    ".": "floor",
+    "S": "shelf",
+    "P": "counter",
+    "D": "door"
+  },
+  "playerSpawn": { "x": 160, "y": 120 },
+  "registers": [
+    { "id": "r1", "x": 120, "y": 136, "hp": 60 },
+    { "id": "r2", "x": 160, "y": 136, "hp": 60 },
+    { "id": "r3", "x": 200, "y": 136, "hp": 60 }
+  ],
+  "spawns": [
+    { "id": "n", "x": 160, "y": 32 },
+    { "id": "w", "x": 40, "y": 80 },
+    { "id": "e", "x": 280, "y": 80 },
+    { "id": "doorL", "x": 24, "y": 24 },
+    { "id": "doorR", "x": 296, "y": 24 }
+  ],
+  "loseWhen": "all",
+  "intermission": 0.8,
+  "startAmmo": { "bawlz": 8 },
+  "dropChance": 0.35,
+  "pickupTable": [
+    { "give": "bawlz", "n": 2, "w": 3 },
+    { "give": "hp", "n": 1, "w": 1 }
+  ],
+  "waves": [
+    {
+      "id": "w1",
+      "delay": 0.3,
+      "clearBonus": 100,
+      "groups": [
+        { "kind": "mouse", "count": 3, "every": 0.8, "spawn": "any", "hp": 2, "speed": 30 }
+      ]
+    },
+    {
+      "id": "w2",
+      "delay": 0.5,
+      "clearBonus": 150,
+      "groups": [
+        { "kind": "mouse", "count": 5, "every": 0.65, "spawn": "any", "hp": 2, "speed": 34 }
+      ]
+    },
+    {
+      "id": "w3",
+      "delay": 0.6,
+      "clearBonus": 250,
+      "groups": [
+        { "kind": "mouse", "count": 3, "every": 0.7, "spawn": "any", "hp": 2, "speed": 36 },
+        { "kind": "pete", "count": 1, "every": 0, "spawn": "n", "hp": 24, "speed": 50 }
+      ]
+    }
+  ]
+}
