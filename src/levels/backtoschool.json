@@ -1,0 +1,166 @@
+{
+  "id": "backtoschool",
+  "name": "BACK TO SCHOOL — Laptop Aisle Stampede",
+  "version": 1,
+  "legend": {
+    "#": "wall",
+    ".": "floor",
+    "S": "shelf",
+    "P": "counter",
+    "D": "door"
+  },
+  "tiles": [
+    "######################",
+    "#D..................D#",
+    "#....................#",
+    "#..SSSSS......SSSSS..#",
+    "#....................#",
+    "#..SSSSS......SSSSS..#",
+    "#....................#",
+    "#..SSSSS......SSSSS..#",
+    "#....................#",
+    "#....................#",
+    "#....................#",
+    "#.......PPPPPP.......#",
+    "######################"
+  ],
+  "playerSpawn": {
+    "x": 176,
+    "y": 152
+  },
+  "registers": [
+    {
+      "id": "r1",
+      "x": 152,
+      "y": 184,
+      "hp": 100
+    },
+    {
+      "id": "r2",
+      "x": 176,
+      "y": 184,
+      "hp": 100
+    },
+    {
+      "id": "r3",
+      "x": 200,
+      "y": 184,
+      "hp": 100
+    }
+  ],
+  "spawns": [
+    {
+      "id": "n",
+      "x": 176,
+      "y": 40
+    },
+    {
+      "id": "w",
+      "x": 40,
+      "y": 72
+    },
+    {
+      "id": "e",
+      "x": 312,
+      "y": 72
+    },
+    {
+      "id": "doorL",
+      "x": 24,
+      "y": 24
+    },
+    {
+      "id": "doorR",
+      "x": 328,
+      "y": 24
+    }
+  ],
+  "loseWhen": "all",
+  "intermission": 1,
+  "startAmmo": {
+    "bawlz": 16
+  },
+  "dropChance": 0.6,
+  "pickupTable": [
+    {
+      "give": "bawlz",
+      "n": 3,
+      "w": 3
+    },
+    {
+      "give": "hp",
+      "n": 1,
+      "w": 1
+    }
+  ],
+  "waves": [
+    {
+      "id": "w1",
+      "delay": 0.3,
+      "clearBonus": 100,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 4,
+          "every": 0.8,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 30
+        }
+      ]
+    },
+    {
+      "id": "w2",
+      "delay": 0.5,
+      "clearBonus": 150,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 6,
+          "every": 0.7,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 33
+        }
+      ]
+    },
+    {
+      "id": "w3",
+      "delay": 0.5,
+      "clearBonus": 200,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 7,
+          "every": 0.6,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 35
+        }
+      ]
+    },
+    {
+      "id": "w4",
+      "delay": 0.6,
+      "clearBonus": 300,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 5,
+          "every": 0.7,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 36
+        },
+        {
+          "kind": "pete",
+          "count": 1,
+          "every": 0,
+          "spawn": "n",
+          "hp": 14,
+          "speed": 42
+        }
+      ]
+    }
+  ]
+}

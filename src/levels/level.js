@@ -1,6 +1,6 @@
 import { SOLID, TILE } from '../core/defs.js';
 
-export const LEVELS = Object.freeze(['store01']);
+export const LEVELS = Object.freeze(['store01', 'blackfriday', 'gtadrop', 'backtoschool', 'gpuscalper']);
 
 const FORBIDDEN = new Set(['__proto__', 'constructor', 'prototype']);
 

@@ -1,0 +1,177 @@
+{
+ "id": "gtadrop",
+ "name": "GTA DROP DAY — Midnight Launch",
+ "version": 1,
+ "tiles": [
+  "##########################",
+  "#D......................D#",
+  "#........................#",
+  "#..SSSSSSSS......SSSSSS..#",
+  "#........................#",
+  "#........................#",
+  "#..SSSSSS......SSSSSSSS..#",
+  "#........................#",
+  "#........................#",
+  "#..SSSSSSSS......SSSSSS..#",
+  "#........................#",
+  "#........................#",
+  "#.PPPPPPPPPPPPPPPPPPPPPP.#",
+  "##########################"
+ ],
+ "legend": {
+  "#": "wall",
+  ".": "floor",
+  "S": "shelf",
+  "P": "counter",
+  "D": "door"
+ },
+ "playerSpawn": {
+  "x": 200,
+  "y": 160
+ },
+ "registers": [
+  {
+   "id": "r1",
+   "x": 88,
+   "y": 200,
+   "hp": 160
+  },
+  {
+   "id": "r2",
+   "x": 200,
+   "y": 200,
+   "hp": 160
+  },
+  {
+   "id": "r3",
+   "x": 312,
+   "y": 200,
+   "hp": 160
+  }
+ ],
+ "spawns": [
+  {
+   "id": "nw",
+   "x": 24,
+   "y": 24
+  },
+  {
+   "id": "ne",
+   "x": 376,
+   "y": 24
+  },
+  {
+   "id": "n",
+   "x": 200,
+   "y": 24
+  },
+  {
+   "id": "w",
+   "x": 24,
+   "y": 120
+  }
+ ],
+ "loseWhen": "all",
+ "intermission": 0.8,
+ "startAmmo": {
+  "bawlz": 12
+ },
+ "dropChance": 0.5,
+ "pickupTable": [
+  {
+   "give": "bawlz",
+   "n": 3,
+   "w": 3
+  },
+  {
+   "give": "hp",
+   "n": 1,
+   "w": 1
+  }
+ ],
+ "waves": [
+  {
+   "id": "w1",
+   "delay": 0.5,
+   "clearBonus": 100,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 6,
+     "every": 0.6,
+     "spawn": "any",
+     "hp": 2,
+     "speed": 40
+    }
+   ]
+  },
+  {
+   "id": "w2",
+   "delay": 0.5,
+   "clearBonus": 150,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 10,
+     "every": 0.45,
+     "spawn": "any",
+     "hp": 3,
+     "speed": 46
+    }
+   ]
+  },
+  {
+   "id": "w3",
+   "delay": 0.5,
+   "clearBonus": 200,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 12,
+     "every": 0.4,
+     "spawn": "any",
+     "hp": 3,
+     "speed": 50
+    }
+   ]
+  },
+  {
+   "id": "w4",
+   "delay": 0.5,
+   "clearBonus": 300,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 14,
+     "every": 0.35,
+     "spawn": "any",
+     "hp": 4,
+     "speed": 54
+    }
+   ]
+  },
+  {
+   "id": "w5",
+   "delay": 0.5,
+   "clearBonus": 400,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 10,
+     "every": 0.4,
+     "spawn": "any",
+     "hp": 4,
+     "speed": 56
+    },
+    {
+     "kind": "pete",
+     "count": 1,
+     "every": 0,
+     "spawn": "n",
+     "hp": 40,
+     "speed": 58
+    }
+   ]
+  }
+ ]
+}

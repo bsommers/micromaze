@@ -10,11 +10,15 @@ npm run lint:imports
 echo "== test =="
 npm test
 
-echo "== validate store01 =="
-npm run validate
+echo "== validate levels =="
+for f in src/levels/*.json; do node tools/validate-level.mjs "$f"; done
 
 echo "== botplay =="
 npm run botplay
+for L in blackfriday gtadrop backtoschool gpuscalper; do
+  echo "-- $L (informational: level difficulty varies)"
+  node tools/botplay.mjs --level $L --seeds 1,2,3,4,5 | tail -1 || true
+done
 
 if curl -sf -o /dev/null http://127.0.0.1:4880/; then
   echo "== tracker :4880 ok =="

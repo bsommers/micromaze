@@ -1,0 +1,188 @@
+{
+ "id": "blackfriday",
+ "name": "BLACK FRIDAY — Doorbuster 5AM",
+ "version": 1,
+ "tiles": [
+  "########################",
+  "#D....................D#",
+  "#......................#",
+  "#..SS..SS......SS..SS..#",
+  "#......................#",
+  "D......................D",
+  "#......................#",
+  "#..SS..SS......SS..SS..#",
+  "#......................#",
+  "#......................#",
+  "#....SS..........SS....#",
+  "#......................#",
+  "#.PPP..PPP..PPP..PPP...#",
+  "########################"
+ ],
+ "legend": {
+  "#": "wall",
+  ".": "floor",
+  "S": "shelf",
+  "P": "counter",
+  "D": "door"
+ },
+ "playerSpawn": {
+  "x": 192,
+  "y": 160
+ },
+ "registers": [
+  {
+   "id": "r1",
+   "x": 40,
+   "y": 200,
+   "hp": 75
+  },
+  {
+   "id": "r2",
+   "x": 120,
+   "y": 200,
+   "hp": 75
+  },
+  {
+   "id": "r3",
+   "x": 216,
+   "y": 200,
+   "hp": 75
+  },
+  {
+   "id": "r4",
+   "x": 296,
+   "y": 200,
+   "hp": 75
+  }
+ ],
+ "spawns": [
+  {
+   "id": "nw",
+   "x": 24,
+   "y": 24
+  },
+  {
+   "id": "ne",
+   "x": 360,
+   "y": 24
+  },
+  {
+   "id": "w",
+   "x": 24,
+   "y": 88
+  },
+  {
+   "id": "e",
+   "x": 360,
+   "y": 88
+  },
+  {
+   "id": "n",
+   "x": 184,
+   "y": 24
+  }
+ ],
+ "loseWhen": "all",
+ "intermission": 0.8,
+ "startAmmo": {
+  "bawlz": 10
+ },
+ "dropChance": 0.55,
+ "pickupTable": [
+  {
+   "give": "bawlz",
+   "n": 3,
+   "w": 3
+  },
+  {
+   "give": "hp",
+   "n": 1,
+   "w": 1
+  }
+ ],
+ "waves": [
+  {
+   "id": "w1",
+   "delay": 0.5,
+   "clearBonus": 100,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 8,
+     "every": 0.5,
+     "spawn": "any",
+     "hp": 2,
+     "speed": 34
+    }
+   ]
+  },
+  {
+   "id": "w2",
+   "delay": 0.5,
+   "clearBonus": 150,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 12,
+     "every": 0.4,
+     "spawn": "any",
+     "hp": 2,
+     "speed": 38
+    }
+   ]
+  },
+  {
+   "id": "w3",
+   "delay": 0.5,
+   "clearBonus": 200,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 16,
+     "every": 0.35,
+     "spawn": "any",
+     "hp": 2,
+     "speed": 40
+    }
+   ]
+  },
+  {
+   "id": "w4",
+   "delay": 0.5,
+   "clearBonus": 250,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 20,
+     "every": 0.3,
+     "spawn": "any",
+     "hp": 3,
+     "speed": 42
+    }
+   ]
+  },
+  {
+   "id": "w5",
+   "delay": 0.5,
+   "clearBonus": 400,
+   "groups": [
+    {
+     "kind": "mouse",
+     "count": 14,
+     "every": 0.35,
+     "spawn": "any",
+     "hp": 3,
+     "speed": 44
+    },
+    {
+     "kind": "pete",
+     "count": 1,
+     "every": 0,
+     "spawn": "n",
+     "hp": 30,
+     "speed": 52
+    }
+   ]
+  }
+ ]
+}

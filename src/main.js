@@ -10,6 +10,8 @@ import { createGameParticles } from './render/particles.js';
 import { createRenderer, buildArtFallback } from './render/renderer.js';
 import { createBot } from './sim/autopilot.js';
 import { createTouch } from './ui/touch.js';
+import { createLevelMenu } from './ui/levelmenu.js';
+import { LEVELS } from './levels/level.js';
 
 const qs = new URLSearchParams(globalThis.location?.search ?? '');
 let settings = loadSettings();
@@ -18,6 +20,7 @@ const seed = Number(qs.get('seed')) || 1;
 const useBot = qs.get('bot') === '1';
 const autostart = qs.get('autostart') === '1';
 
+const levelId = LEVELS.includes(qs.get('level')) ? qs.get('level') : 'store01';
 const canvas = document.getElementById('game');
 const bus = createBus();
 const autoBot = useBot ? createBot({ skill: 1 }) : null;
@@ -32,7 +35,7 @@ async function loadArt(mode) {
 }
 
 async function boot() {
-  const level = await fetchLevel('store01');
+  const level = await fetchLevel(levelId);
   let art = await loadArt(settings.gfx);
   const game = createGame({ seed, level, bus });
   const camera = createCamera(game);
@@ -40,6 +43,7 @@ async function boot() {
   const audio = createAudio(bus, settings);
   const renderer = createRenderer(canvas, { art, bus, settings, particles });
 
+  const menu = createLevelMenu(levelId);
   let tauntAge = 999;
   bus.on('taunt', () => { tauntAge = 0; });
 
@@ -79,6 +83,7 @@ async function boot() {
       acc -= DT;
     }
 
+    menu.update(game.outcome);
     renderer.draw(game, acc / DT, camera);
     audio.unlock();
     requestAnimationFrame(frame);

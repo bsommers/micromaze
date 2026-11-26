@@ -29,3 +29,21 @@ body {
   background: #000;
   box-shadow: 0 0 0 2px #2a2433, 0 12px 48px rgba(0, 0, 0, 0.65);
 }
+#levelbar {
+  position: fixed; top: 6px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 5; flex-wrap: wrap; justify-content: center;
+}
+#levelbar a, #endcard a {
+  color: #e8e6f0; background: #1d1829; border: 1px solid #3a3150;
+  padding: 3px 9px; text-decoration: none; font-size: 12px;
+}
+#levelbar a.cur { background: #e8c23b; color: #1a1408; border-color: #e8c23b; }
+#levelbar a:hover, #endcard a:hover { background: #3a3150; }
+#endcard {
+  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  background: rgba(10, 8, 16, 0.92); border: 2px solid #e8c23b;
+  padding: 16px 28px; text-align: center; z-index: 6;
+}
+#endcard[hidden] { display: none; }
+#endcard h2 { margin: 0 0 10px; color: #e8c23b; }
+#endcard p { display: flex; gap: 10px; justify-content: center; margin: 0; }

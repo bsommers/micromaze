@@ -1,0 +1,179 @@
+{
+  "id": "gpuscalper",
+  "name": "GPU RESTOCK — Scalper Panic",
+  "version": 1,
+  "legend": {
+    "#": "wall",
+    ".": "floor",
+    "S": "shelf",
+    "P": "counter",
+    "D": "door"
+  },
+  "tiles": [
+    "####################",
+    "#D......D..D.....D.#",
+    "#..................#",
+    "#..................#",
+    "#...SS........SS...#",
+    "#..................#",
+    "#..................#",
+    "#...SS........SS...#",
+    "#..................#",
+    "#..................#",
+    "#.......PPPP.......#",
+    "####################"
+  ],
+  "playerSpawn": {
+    "x": 160,
+    "y": 136
+  },
+  "registers": [
+    {
+      "id": "r1",
+      "x": 144,
+      "y": 168,
+      "hp": 90
+    },
+    {
+      "id": "r2",
+      "x": 176,
+      "y": 168,
+      "hp": 90
+    }
+  ],
+  "spawns": [
+    {
+      "id": "d1",
+      "x": 24,
+      "y": 24
+    },
+    {
+      "id": "d2",
+      "x": 136,
+      "y": 24
+    },
+    {
+      "id": "d3",
+      "x": 184,
+      "y": 24
+    },
+    {
+      "id": "d4",
+      "x": 280,
+      "y": 24
+    },
+    {
+      "id": "w",
+      "x": 24,
+      "y": 88
+    },
+    {
+      "id": "e",
+      "x": 296,
+      "y": 88
+    }
+  ],
+  "loseWhen": "any",
+  "intermission": 0.7,
+  "startAmmo": {
+    "bawlz": 8
+  },
+  "dropChance": 0.3,
+  "pickupTable": [
+    {
+      "give": "bawlz",
+      "n": 2,
+      "w": 3
+    },
+    {
+      "give": "hp",
+      "n": 1,
+      "w": 1
+    }
+  ],
+  "waves": [
+    {
+      "id": "w1",
+      "delay": 0.3,
+      "clearBonus": 120,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 6,
+          "every": 0.5,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 42
+        }
+      ]
+    },
+    {
+      "id": "w2",
+      "delay": 0.4,
+      "clearBonus": 180,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 9,
+          "every": 0.4,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 46
+        }
+      ]
+    },
+    {
+      "id": "w3",
+      "delay": 0.4,
+      "clearBonus": 250,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 12,
+          "every": 0.35,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 50
+        }
+      ]
+    },
+    {
+      "id": "w4",
+      "delay": 0.4,
+      "clearBonus": 350,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 16,
+          "every": 0.3,
+          "spawn": "any",
+          "hp": 2,
+          "speed": 54
+        }
+      ]
+    },
+    {
+      "id": "w5",
+      "delay": 0.5,
+      "clearBonus": 600,
+      "groups": [
+        {
+          "kind": "mouse",
+          "count": 18,
+          "every": 0.25,
+          "spawn": "any",
+          "hp": 3,
+          "speed": 58
+        },
+        {
+          "kind": "pete",
+          "count": 1,
+          "every": 0,
+          "spawn": "d2",
+          "hp": 30,
+          "speed": 55
+        }
+      ]
+    }
+  ]
+}
