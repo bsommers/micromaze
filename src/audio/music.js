@@ -4,7 +4,7 @@ const STORE_BASS = ['C2:8 G1:8 A1:8 E2:8', 'F2:8 C2:8 G1:8 D2:8', 'G1:8 D2:8 A1:
 
 /** defs.MUSIC tracks */
 export const MUSIC_TABLE = {
-  title: jingle('C4:4 E4:4 G4:4 C5:8', { bpm: 108, vel: 0.22, bass: ['C3:16', 'G2:16', 'C3:16', 'G2:16'] }),
+  title: jingle('C4:4 E4:4 G4:4 .:4 C5:8', { bpm: 108, vel: 0.22, bass: ['C3:16', 'G2:16', 'C3:16', 'G2:16'] }),
   store: {
     bpm: 118,
     bars: 4,
