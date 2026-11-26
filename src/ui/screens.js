@@ -22,7 +22,7 @@ export function drawScreens(ctx, game, w = W, h = H) {
     ctx.fillText('Defend the registers. Scanner + Bawlz.', cx, cy - 10);
     ctx.fillText('ENTER — start', cx, cy + 14);
     ctx.fillStyle = '#7a6f8a';
-    ctx.fillText('WASD move · mouse aim · LMB fire · RMB/F throw · G gfx', cx, cy + 28);
+    ctx.fillText('WASD move · mouse aim · LMB/Space scanner · RMB/F Bawlz · Esc pause', cx, cy + 28);
   }
 
   if (game.outcome?.win) {

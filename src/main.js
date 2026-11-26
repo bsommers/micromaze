@@ -11,6 +11,8 @@ import { createRenderer, buildArtFallback } from './render/renderer.js';
 import { createBot } from './sim/autopilot.js';
 import { createTouch } from './ui/touch.js';
 import { createLevelMenu } from './ui/levelmenu.js';
+import { createStartMenu } from './ui/startmenu.js';
+import { recordScore } from './core/scores.js';
 import { LEVELS } from './levels/level.js';
 
 const qs = new URLSearchParams(globalThis.location?.search ?? '');
@@ -44,6 +46,39 @@ async function boot() {
   const renderer = createRenderer(canvas, { art, bus, settings, particles });
 
   const menu = createLevelMenu(levelId);
+  const applySettings = (next) => {
+    const gfxChanged = next.gfx !== settings.gfx;
+    settings = sanitizeSettings(next);
+    saveSettings(settings);
+    audio.applySettings(settings);
+    document.body.classList.toggle('crt', settings.crt);
+    if (gfxChanged) void loadArt(settings.gfx).then((a) => { art = a; renderer.setArt(a); });
+  };
+  document.body.classList.toggle('crt', settings.crt);
+  let started = autostart || useBot;
+  const startMenu = createStartMenu({
+    currentId: levelId,
+    getSettings: () => settings,
+    onSettings: applySettings,
+    onPlay: (id) => {
+      const u = new URL(globalThis.location.href);
+      u.searchParams.set('level', id);
+      u.searchParams.set('autostart', '1');
+      globalThis.location.href = u.pathname + u.search;
+    },
+    onResume: () => { audio.unlock(); },
+    canResume: () => started && !game.outcome,
+  });
+  if (!started) startMenu.open('main');
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'p' || e.key === 'P') {
+      if (startMenu.isOpen) { if (started && !game.outcome) startMenu.close(true); }
+      else { startMenu.open('main'); }
+    }
+  });
+  bus.on('game_over', ({ win, score }) => {
+    recordScore(levelId, { score: score ?? game.score, win, t: game.t });
+  });
   let tauntAge = 999;
   bus.on('taunt', () => { tauntAge = 0; });
 
@@ -51,11 +86,7 @@ async function boot() {
   const input = createInput(canvas, () => ({
     x: camera.x, y: camera.y, lb: renderer.letterbox,
   }), {
-    onGfxToggle: () => {
-      settings.gfx = settings.gfx === '16bit' ? '32bit' : '16bit';
-      saveSettings(settings);
-      void loadArt(settings.gfx).then((a) => { art = a; renderer.setArt(a); });
-    },
+    onGfxToggle: () => applySettings({ ...settings, gfx: settings.gfx === '16bit' ? '32bit' : '16bit' }),
   });
 
   let last = performance.now();
@@ -76,6 +107,7 @@ async function boot() {
     }
     if (autoBot) inp = autoBot.decide(game);
 
+    if (startMenu.isOpen) acc = 0;
     while (acc >= DT) {
       game.update(DT, inp);
       particles.update(DT);
@@ -97,11 +129,7 @@ async function boot() {
     game,
     bus,
     settings,
-    setGfx(mode) {
-      settings = sanitizeSettings({ ...settings, gfx: mode });
-      saveSettings(settings);
-      return loadArt(settings.gfx).then((a) => { art = a; renderer.setArt(a); });
-    },
+    setGfx(mode) { applySettings({ ...settings, gfx: mode }); },
   };
 
   canvas.addEventListener('click', () => audio.unlock(), { once: true });

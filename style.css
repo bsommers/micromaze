@@ -47,3 +47,38 @@ body {
 #endcard[hidden] { display: none; }
 #endcard h2 { margin: 0 0 10px; color: #e8c23b; }
 #endcard p { display: flex; gap: 10px; justify-content: center; margin: 0; }
+
+#startmenu {
+  position: fixed; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center;
+  background: rgba(10, 8, 16, 0.86);
+}
+#startmenu[hidden] { display: none; }
+#startmenu .panel {
+  min-width: 300px; max-width: 92vw; max-height: 92vh; overflow: auto;
+  display: flex; flex-direction: column; gap: 8px; padding: 20px 26px;
+  background: #15121f; border: 2px solid #e8c23b;
+}
+#startmenu h1 { margin: 0; color: #e8c23b; text-align: center; letter-spacing: 4px; }
+#startmenu h2 { margin: 0 0 4px; color: #e8c23b; text-align: center; }
+#startmenu h3 { margin: 6px 0 0; color: #3dd68c; font-size: 13px; }
+#startmenu .tag { margin: 0 0 6px; text-align: center; color: #7a6f8a; font-size: 12px; }
+.mbtn {
+  font: inherit; font-size: 14px; color: #e8e6f0; background: #1d1829; border: 1px solid #3a3150;
+  padding: 8px 14px; cursor: pointer;
+}
+.mbtn:hover, .mbtn:focus { background: #3a3150; outline: 2px solid #e8c23b; }
+.mbtn.primary { background: #e8c23b; color: #1a1408; border-color: #e8c23b; }
+.mbtn.sub { color: #9b91ad; }
+.mbtn.small { padding: 3px 12px; min-width: 64px; }
+#startmenu .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; }
+#startmenu .row input[type=range] { flex: 1; min-width: 110px; accent-color: #e8c23b; }
+#startmenu .val { width: 38px; text-align: right; }
+#startmenu table.ctl { border-collapse: collapse; font-size: 13px; }
+#startmenu .ctl th { text-align: left; color: #e8c23b; padding: 3px 14px 3px 0; white-space: nowrap; }
+#startmenu .ctl td { padding: 3px 0; }
+#startmenu ol.scores { margin: 2px 0 0; padding-left: 22px; font-size: 12px; white-space: pre; }
+body.crt #game { filter: contrast(1.08) saturate(1.1); }
+body.crt #stage::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);
+}

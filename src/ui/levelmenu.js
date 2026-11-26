@@ -1,33 +1,16 @@
 // DOM level picker + end-of-level overlay. No sim access beyond a read-only outcome.
 import { LEVELS } from '../levels/level.js';
 
-const TITLES = {
-  store01: 'Front Checkout',
-  blackfriday: 'Black Friday',
-  gtadrop: 'GTA Drop Day',
-  backtoschool: 'Back to School',
-  gpuscalper: 'GPU Scalper Panic',
-};
+import { LEVEL_TITLES as TITLES } from './startmenu.js';
 
 function href(id) {
   const u = new URL(globalThis.location.href);
   u.searchParams.set('level', id);
-  u.searchParams.delete('autostart');
+  u.searchParams.set('autostart', '1');
   return u.pathname + u.search;
 }
 
 export function createLevelMenu(currentId) {
-  const bar = document.createElement('nav');
-  bar.id = 'levelbar';
-  for (const id of LEVELS) {
-    const a = document.createElement('a');
-    a.href = href(id);
-    a.textContent = TITLES[id] ?? id;
-    if (id === currentId) a.className = 'cur';
-    bar.appendChild(a);
-  }
-  document.body.appendChild(bar);
-
   const ov = document.createElement('div');
   ov.id = 'endcard';
   ov.hidden = true;

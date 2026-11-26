@@ -18,6 +18,7 @@ export function createInput(canvas, getCamera, { onGfxToggle } = {}) {
     }
     if (down && k === 'g') gDown = true;
     if (down && (k === 'enter' || k === ' ')) startEdge = true;
+    if (down && !e.repeat && (k === 'f' || k === 'e')) throwEdge = true;
     if (e.code === 'Space' && down) e.preventDefault();
   };
 
@@ -83,7 +84,7 @@ export function createInput(canvas, getCamera, { onGfxToggle } = {}) {
       if (L < 0.5) { ax = 0; ay = 0; }
       const out = {
         mx, my, ax, ay,
-        fire,
+        fire: fire || keys.has(' '),
         throwPressed: throwEdge,
         startPressed: startEdge,
       };

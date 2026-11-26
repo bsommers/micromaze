@@ -1,0 +1,457 @@
+{
+  "$schema": "tools/library/schemas/library.schema.json",
+  "formatVersion": 2,
+  "name": "micromaze-characters",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "MicroMaze parody character sprites (16-bit and 32-bit), transparent PNGs with sheets.",
+  "tags": [
+    "sprite",
+    "pixel-art",
+    "characters",
+    "parody",
+    "top-down"
+  ],
+  "assetTypes": [
+    "sprite"
+  ],
+  "authors": [
+    "MicroMaze contributors"
+  ],
+  "sheets": {
+    "px16": "px16/sheet.png",
+    "px32": "px32/sheet.png"
+  },
+  "characters": [
+    {
+      "id": "scanner_tech",
+      "name": "Scanner Tech",
+      "role": "player",
+      "description": "Orange-tabby store tech with a price-scanner gun and a name tag nobody reads. Paid in exposure and employee-discount coupons, sworn to defend the registers from the micro-mice. Goes horizontal when overwhelmed, then gets yelled at to stand back up.",
+      "art": [
+        "player_idle",
+        "player_run",
+        "player_down"
+      ],
+      "modes": {
+        "px16": {
+          "gfxMode": "16bit",
+          "scale": 1,
+          "sheet": "px16/sheet.png",
+          "sprites": [
+            {
+              "name": "player_idle",
+              "width": 16,
+              "height": 16,
+              "frames": [
+                "px16/player_idle_0.png",
+                "px16/player_idle_1.png"
+              ]
+            },
+            {
+              "name": "player_run",
+              "width": 16,
+              "height": 16,
+              "frames": [
+                "px16/player_run_0.png",
+                "px16/player_run_1.png",
+                "px16/player_run_2.png",
+                "px16/player_run_3.png"
+              ]
+            },
+            {
+              "name": "player_down",
+              "width": 16,
+              "height": 16,
+              "frames": [
+                "px16/player_down_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#0d0b12",
+            "#3e3546",
+            "#4d9de0",
+            "#5d576b",
+            "#c57431",
+            "#e83b3b",
+            "#e8883a",
+            "#ea944e",
+            "#f0a030",
+            "#f0c8a0"
+          ]
+        },
+        "px32": {
+          "gfxMode": "32bit",
+          "scale": 2,
+          "sheet": "px32/sheet.png",
+          "sprites": [
+            {
+              "name": "player_idle",
+              "width": 32,
+              "height": 32,
+              "frames": [
+                "px32/player_idle_0.png",
+                "px32/player_idle_1.png"
+              ]
+            },
+            {
+              "name": "player_run",
+              "width": 32,
+              "height": 32,
+              "frames": [
+                "px32/player_run_0.png",
+                "px32/player_run_1.png",
+                "px32/player_run_2.png",
+                "px32/player_run_3.png"
+              ]
+            },
+            {
+              "name": "player_down",
+              "width": 32,
+              "height": 32,
+              "frames": [
+                "px32/player_down_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#070609",
+            "#12101a",
+            "#3e3546",
+            "#61abe2",
+            "#a8b0c0",
+            "#be7030",
+            "#e4be98",
+            "#e8883a",
+            "#ea5938",
+            "#ea8d38",
+            "#eb9a58",
+            "#f0a030",
+            "#f0c8a0"
+          ]
+        }
+      }
+    },
+    {
+      "id": "christopher",
+      "name": "Christopher",
+      "role": "manager (voice only)",
+      "description": "The cruel, fictional floor manager. Never seen, only heard: watches the cameras, takes every lost register personally, and has never once said thank you. No sprite; appears as taunt banners.",
+      "art": [],
+      "modes": {
+        "px16": {
+          "gfxMode": "16bit",
+          "scale": 1,
+          "sheet": null,
+          "sprites": [],
+          "palette": []
+        },
+        "px32": {
+          "gfxMode": "32bit",
+          "scale": 2,
+          "sheet": null,
+          "sprites": [],
+          "palette": []
+        }
+      }
+    },
+    {
+      "id": "micro_mouse",
+      "name": "Micro-Mouse",
+      "role": "enemy (swarm)",
+      "description": "Wireless, ergonomic, and hungry. Micro-mice pour out of the stockroom in waves to gnaw the checkout registers. Small, fast in numbers, two scans to clear.",
+      "art": [
+        "mouse"
+      ],
+      "modes": {
+        "px16": {
+          "gfxMode": "16bit",
+          "scale": 1,
+          "sheet": "px16/sheet.png",
+          "sprites": [
+            {
+              "name": "mouse",
+              "width": 16,
+              "height": 16,
+              "frames": [
+                "px16/mouse_0.png",
+                "px16/mouse_1.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#0d0b12",
+            "#5d576b",
+            "#e87ad6",
+            "#f0a030"
+          ]
+        },
+        "px32": {
+          "gfxMode": "32bit",
+          "scale": 2,
+          "sheet": "px32/sheet.png",
+          "sprites": [
+            {
+              "name": "mouse",
+              "width": 32,
+              "height": 32,
+              "frames": [
+                "px32/mouse_0.png",
+                "px32/mouse_1.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#12101a",
+            "#585366",
+            "#5d576b",
+            "#e87ad6",
+            "#f0a030"
+          ]
+        }
+      }
+    },
+    {
+      "id": "pete",
+      "name": "Perring Parkway Pete",
+      "role": "boss",
+      "description": "The big rat himself, boss of Perring Parkway and landlord of the clearance aisle. Dashes, spawns micro-mice on a timer, and gets meaner as his health drops. Squeaks at store boys.",
+      "art": [
+        "pete"
+      ],
+      "modes": {
+        "px16": {
+          "gfxMode": "16bit",
+          "scale": 1,
+          "sheet": "px16/sheet.png",
+          "sprites": [
+            {
+              "name": "pete",
+              "width": 24,
+              "height": 24,
+              "frames": [
+                "px16/pete_0.png",
+                "px16/pete_1.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#0d0b12",
+            "#4b3729",
+            "#5b4331",
+            "#6b4f3a",
+            "#e83b3b",
+            "#e8e6f0"
+          ]
+        },
+        "px32": {
+          "gfxMode": "32bit",
+          "scale": 2,
+          "sheet": "px32/sheet.png",
+          "sprites": [
+            {
+              "name": "pete",
+              "width": 48,
+              "height": 48,
+              "frames": [
+                "px32/pete_0.png",
+                "px32/pete_1.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#12101a",
+            "#463326",
+            "#604734",
+            "#6b4f3a",
+            "#725844",
+            "#7f5b39",
+            "#e83b3b",
+            "#e8e6f0"
+          ]
+        }
+      }
+    },
+    {
+      "id": "scanner_bolt",
+      "name": "Scanner Bolt",
+      "role": "projectile",
+      "description": "The price-scanner beam: infinite ammo, one damage, zero returns accepted.",
+      "art": [
+        "projectile"
+      ],
+      "modes": {
+        "px16": {
+          "gfxMode": "16bit",
+          "scale": 1,
+          "sheet": "px16/sheet.png",
+          "sprites": [
+            {
+              "name": "projectile",
+              "width": 8,
+              "height": 8,
+              "frames": [
+                "px16/projectile_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#0d0b12",
+            "#3dd68c",
+            "#e8e6f0"
+          ]
+        },
+        "px32": {
+          "gfxMode": "32bit",
+          "scale": 2,
+          "sheet": "px32/sheet.png",
+          "sprites": [
+            {
+              "name": "projectile",
+              "width": 16,
+              "height": 16,
+              "frames": [
+                "px32/projectile_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#12101a",
+            "#54e29e",
+            "#e8e6f0"
+          ]
+        }
+      }
+    },
+    {
+      "id": "bawlz_can",
+      "name": "BAWLZ Can",
+      "role": "grenade + pickup",
+      "description": "Parody energy-drink can, lobbed as a grenade for splash damage. Caffeinated, carbonated, not covered by the protection plan. The pickup frame restocks the can supply.",
+      "art": [
+        "grenade",
+        "pickup_bawlz"
+      ],
+      "modes": {
+        "px16": {
+          "gfxMode": "16bit",
+          "scale": 1,
+          "sheet": "px16/sheet.png",
+          "sprites": [
+            {
+              "name": "grenade",
+              "width": 8,
+              "height": 8,
+              "frames": [
+                "px16/grenade_0.png",
+                "px16/grenade_1.png"
+              ]
+            },
+            {
+              "name": "pickup_bawlz",
+              "width": 12,
+              "height": 12,
+              "frames": [
+                "px16/pickup_bawlz_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#0d0b12",
+            "#1a8f85",
+            "#2ec4b6",
+            "#4dcdc1",
+            "#5d576b",
+            "#e8e6f0"
+          ]
+        },
+        "px32": {
+          "gfxMode": "32bit",
+          "scale": 2,
+          "sheet": "px32/sheet.png",
+          "sprites": [
+            {
+              "name": "grenade",
+              "width": 16,
+              "height": 16,
+              "frames": [
+                "px32/grenade_0.png",
+                "px32/grenade_1.png"
+              ]
+            },
+            {
+              "name": "pickup_bawlz",
+              "width": 24,
+              "height": 24,
+              "frames": [
+                "px32/pickup_bawlz_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#12101a",
+            "#1a8f85",
+            "#2ec4b6",
+            "#3ecfb8",
+            "#58d0c5",
+            "#a8b0c0",
+            "#e8e6f0"
+          ]
+        }
+      }
+    },
+    {
+      "id": "hp_pack",
+      "name": "Health Pack",
+      "role": "pickup",
+      "description": "Green plus-sign first aid, restocked from the break room. Restores health; does not restore dignity.",
+      "art": [
+        "pickup_hp"
+      ],
+      "modes": {
+        "px16": {
+          "gfxMode": "16bit",
+          "scale": 1,
+          "sheet": "px16/sheet.png",
+          "sprites": [
+            {
+              "name": "pickup_hp",
+              "width": 12,
+              "height": 12,
+              "frames": [
+                "px16/pickup_hp_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#0d0b12",
+            "#3dd68c",
+            "#64dea3"
+          ]
+        },
+        "px32": {
+          "gfxMode": "32bit",
+          "scale": 2,
+          "sheet": "px32/sheet.png",
+          "sprites": [
+            {
+              "name": "pickup_hp",
+              "width": 24,
+              "height": 24,
+              "frames": [
+                "px32/pickup_hp_0.png"
+              ]
+            }
+          ],
+          "palette": [
+            "#12101a",
+            "#3dd68c",
+            "#4ddf99",
+            "#6ee0a9"
+          ]
+        }
+      }
+    }
+  ]
+}
