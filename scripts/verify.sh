@@ -15,7 +15,8 @@ for f in src/levels/*.json; do node tools/validate-level.mjs "$f"; done
 
 echo "== botplay =="
 npm run botplay
-for L in blackfriday gtadrop backtoschool gpuscalper; do
+for f in src/levels/*.json; do
+  L="$(basename "$f" .json)"
   echo "-- $L (informational: level difficulty varies)"
   node tools/botplay.mjs --level $L --seeds 1,2,3,4,5 | tail -1 || true
 done
