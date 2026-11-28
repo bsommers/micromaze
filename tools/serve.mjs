@@ -47,6 +47,6 @@ export function startStatic({ root = REPO_ROOT, port = 0, host = '127.0.0.1', qu
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const port = Number(process.argv[2] ?? 4781);
-  const s = await startStatic({ port, host: '0.0.0.0', quiet: false }).catch(e => { console.error('serve failed:', e.message); process.exit(1); });
+  const s = await startStatic({ port, host: process.env.SERVE_HOST || '0.0.0.0', quiet: false }).catch(e => { console.error('serve failed:', e.message); process.exit(1); });
   console.log(`dev server: http://127.0.0.1:${s.port}/  (root ${REPO_ROOT})`);
 }
